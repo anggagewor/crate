@@ -62,11 +62,27 @@ const dropdownStyle = ref<Record<string, string>>({})
 function updateDropdownPosition() {
   if (!triggerRef.value) return
   const rect = triggerRef.value.getBoundingClientRect()
+  const viewportWidth = window.innerWidth
+
+  // Start aligned left with trigger
+  let left = rect.left
+
+  // After render, check if it overflows right — if so, align to right edge of trigger
+  // Use rect.width as minimum, but dropdown may be wider (max-content)
+  const estimatedWidth = Math.max(rect.width, 200)
+  if (left + estimatedWidth > viewportWidth - 8) {
+    // Right-align: dropdown right edge = trigger right edge
+    left = rect.right - estimatedWidth
+    if (left < 8) left = 8 // don't go off-screen left either
+  }
+
   dropdownStyle.value = {
     position: 'fixed',
     top: `${rect.bottom + 4}px`,
-    left: `${rect.left}px`,
-    width: `${rect.width}px`,
+    right: `${viewportWidth - rect.right}px`,
+    minWidth: `${rect.width}px`,
+    width: 'max-content',
+    maxWidth: '320px',
     zIndex: '9999',
   }
 }
@@ -254,7 +270,7 @@ const containerClasses = computed(() => {
       <!-- Single value text -->
       <span
         v-if="!multiple && displayText"
-        class="text-sm text-gray-800 truncate dark:text-gray-200"
+        class="text-sm text-gray-800 dark:text-gray-200"
       >
         {{ displayText }}
       </span>

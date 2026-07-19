@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
+import CodeBlock from '@/components/CodeBlock.vue'
 import { useCopy } from '@/composables/useCopy'
 import { BaseCard, BaseButton } from '@purdia/ui'
 import { Copy } from 'lucide-vue-next'
@@ -50,14 +51,14 @@ const decoded = computed(() => {
             <span class="text-xs font-medium text-gray-500">Header</span>
             <BaseButton variant="ghost" size="sm" :icon="Copy" @click="copy(JSON.stringify(decoded.header, null, 2))" />
           </div>
-          <pre class="font-mono text-xs text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{ JSON.stringify(decoded.header, null, 2) }}</pre>
+          <CodeBlock :code="JSON.stringify(decoded.header, null, 2)" language="json" />
         </BaseCard>
         <BaseCard variant="bordered">
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-medium text-gray-500">Payload</span>
             <BaseButton variant="ghost" size="sm" :icon="Copy" @click="copy(JSON.stringify(decoded.payload, null, 2))" />
           </div>
-          <pre class="font-mono text-xs text-gray-900 dark:text-gray-100 whitespace-pre-wrap">{{ JSON.stringify(decoded.payload, null, 2) }}</pre>
+          <CodeBlock :code="JSON.stringify(decoded.payload, null, 2)" language="json" />
           <div v-if="decoded.expDate" class="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700 text-xs">
             <span class="text-gray-500">Expires:</span>
             <span :class="decoded.isExpired ? 'text-red-500' : 'text-green-500'" class="ml-1">

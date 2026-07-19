@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
+import CodeBlock from '@/components/CodeBlock.vue'
 import { useCopy } from '@/composables/useCopy'
 import { BaseButton, BaseCard, BaseAlert, BaseSelect } from '@purdia/ui'
 import { Copy, Check, Minimize2, Maximize2, Trash2 } from 'lucide-vue-next'
@@ -62,16 +63,14 @@ function clear() {
     <div class="flex items-center gap-3 mb-4">
       <BaseButton size="sm" :icon="Maximize2" @click="format">Format</BaseButton>
       <BaseButton variant="secondary" size="sm" :icon="Minimize2" @click="minify">Minify</BaseButton>
-      <div class="flex items-center gap-2 ml-auto w-40">
-        <BaseSelect
-          v-model="indentSize"
-          :options="indentOptions"
-          size="sm"
-          placeholder="Indent"
-          :clearable="false"
-          :searchable="false"
-        />
-      </div>
+      <BaseSelect
+        v-model="indentSize"
+        :options="indentOptions"
+        size="sm"
+        placeholder="Indent"
+        :clearable="false"
+        class="ml-auto w-52"
+      />
       <BaseButton variant="ghost" size="sm" :icon="Trash2" @click="clear">Clear</BaseButton>
     </div>
 
@@ -103,7 +102,10 @@ function clear() {
             </BaseButton>
           </div>
         </template>
-        <pre class="w-full h-96 p-4 font-mono text-sm overflow-auto whitespace-pre-wrap break-words text-gray-700 dark:text-gray-300">{{ output || 'Formatted output will appear here...' }}</pre>
+        <div v-if="output" class="h-96 overflow-auto">
+          <CodeBlock :code="output" language="json" />
+        </div>
+        <pre v-else class="w-full h-96 p-4 font-mono text-sm overflow-auto whitespace-pre-wrap break-words text-gray-400">Formatted output will appear here...</pre>
       </BaseCard>
     </div>
   </ToolLayout>

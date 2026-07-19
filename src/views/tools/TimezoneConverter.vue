@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
 import { useCopy } from '@/composables/useCopy'
-import { BaseButton, BaseCard } from '@purdia/ui'
+import { BaseButton, BaseCard, BaseSelect } from '@purdia/ui'
 import { Copy, Check, ArrowRight } from 'lucide-vue-next'
 
 const { copied, copy } = useCopy()
@@ -16,6 +16,8 @@ const timezones = [
   'Australia/Melbourne', 'Pacific/Auckland', 'Africa/Cairo',
   'Africa/Johannesburg', 'America/Mexico_City',
 ]
+
+const timezoneOptions = timezones.map((tz) => ({ label: tz, value: tz }))
 
 const inputDatetime = ref(new Date().toISOString().slice(0, 16))
 const sourceTimezone = ref('UTC')
@@ -69,22 +71,22 @@ convert()
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">From Timezone</label>
-            <select
+            <BaseSelect
               v-model="sourceTimezone"
-              class="w-full text-sm px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg"
-            >
-              <option v-for="tz in timezones" :key="tz" :value="tz">{{ tz }}</option>
-            </select>
+              :options="timezoneOptions"
+              label="From Timezone"
+              :clearable="false"
+              size="sm"
+            />
           </div>
           <div>
-            <label class="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">To Timezone</label>
-            <select
+            <BaseSelect
               v-model="targetTimezone"
-              class="w-full text-sm px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg"
-            >
-              <option v-for="tz in timezones" :key="tz" :value="tz">{{ tz }}</option>
-            </select>
+              :options="timezoneOptions"
+              label="To Timezone"
+              :clearable="false"
+              size="sm"
+            />
           </div>
         </div>
 

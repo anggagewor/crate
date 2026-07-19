@@ -49,7 +49,6 @@ const conversions = computed(() => {
             label="Base"
             size="md"
             :clearable="false"
-            :searchable="false"
           />
         </div>
       </div>

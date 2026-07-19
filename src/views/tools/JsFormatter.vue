@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
+import CodeBlock from '@/components/CodeBlock.vue'
 import { useCopy } from '@/composables/useCopy'
 import { BaseButton, BaseCard } from '@purdia/ui'
 import { Copy, Check, Maximize2, Minimize2 } from 'lucide-vue-next'
@@ -172,7 +173,10 @@ function minify() {
       </BaseCard>
       <BaseCard variant="bordered" :padding="false">
         <template #header><span class="text-xs font-medium text-gray-500 dark:text-gray-400">Output</span></template>
-        <pre class="w-full h-96 p-4 font-mono text-sm overflow-auto whitespace-pre-wrap break-words text-gray-700 dark:text-gray-300">{{ output || 'Formatted output...' }}</pre>
+        <div v-if="output" class="h-96 overflow-auto">
+          <CodeBlock :code="output" language="javascript" />
+        </div>
+        <pre v-else class="w-full h-96 p-4 font-mono text-sm text-gray-400">Formatted output...</pre>
       </BaseCard>
     </div>
   </ToolLayout>
