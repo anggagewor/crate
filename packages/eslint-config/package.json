@@ -1,0 +1,19 @@
+{
+  "name": "@purdia/eslint-config",
+  "version": "0.1.0",
+  "description": "Shared ESLint flat config for Purdia projects",
+  "files": [
+    "index.js"
+  ],
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "peerDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "typescript-eslint": "^8.0.0"
+  }
+}

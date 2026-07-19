@@ -1,0 +1,9 @@
+{
+  "extends": "./base.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "types": ["vite/client"]
+  }
+}

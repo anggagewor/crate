@@ -1,0 +1,46 @@
+<script setup lang="ts">
+import { useAppStore } from '@/stores/app'
+import AppSidebar from '@/components/AppSidebar.vue'
+import AppTopbar from '@/components/AppTopbar.vue'
+
+const appStore = useAppStore()
+</script>
+
+<template>
+  <div class="flex h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 overflow-hidden">
+    <!-- Sidebar -->
+    <AppSidebar />
+
+    <!-- Main content area -->
+    <div class="flex flex-col flex-1 min-w-0">
+      <!-- Topbar -->
+      <AppTopbar />
+
+      <!-- Page content -->
+      <main
+        class="flex-1 overflow-y-auto pt-14 p-6"
+        :class="appStore.sidebarCollapsed ? 'ml-16' : 'ml-64'"
+      >
+        <div class="py-4">
+          <router-view v-slot="{ Component }">
+            <transition name="fade" mode="out-in">
+              <component :is="Component" />
+            </transition>
+          </router-view>
+        </div>
+      </main>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

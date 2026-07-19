@@ -1,0 +1,27 @@
+{
+  "name": "@purdia/utils",
+  "version": "0.1.0",
+  "description": "Shared utility functions — formatting, validation, and common helpers",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/purdia-utils.umd.cjs",
+  "module": "./dist/purdia-utils.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/purdia-utils.js",
+      "require": "./dist/purdia-utils.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.0",
+    "vite": "^8.0.16"
+  }
+}

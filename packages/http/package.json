@@ -1,0 +1,31 @@
+{
+  "name": "@purdia/http",
+  "version": "0.1.0",
+  "description": "Axios-based HTTP client with token refresh, multi-service support, and encrypted token storage",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/purdia-http.umd.cjs",
+  "module": "./dist/purdia-http.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/purdia-http.js",
+      "require": "./dist/purdia-http.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@purdia/crypto": "^0.1.0",
+    "axios": "^1.18.1"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.0",
+    "vite": "^8.0.16"
+  }
+}

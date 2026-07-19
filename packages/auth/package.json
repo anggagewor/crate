@@ -1,0 +1,38 @@
+{
+  "name": "@purdia/auth",
+  "version": "0.1.0",
+  "description": "Auth composables with encrypted token storage, login/logout, and route guards",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/purdia-auth.umd.cjs",
+  "module": "./dist/purdia-auth.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/purdia-auth.js",
+      "require": "./dist/purdia-auth.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@purdia/crypto": "^0.1.0"
+  },
+  "devDependencies": {
+    "pinia": "^3.0.4",
+    "typescript": "~6.0.0",
+    "vite": "^8.0.16",
+    "vue": "^3.5.38",
+    "vue-router": "^5.1.0"
+  },
+  "peerDependencies": {
+    "pinia": "^3.0.0",
+    "vue": "^3.5.0",
+    "vue-router": "^5.0.0"
+  }
+}

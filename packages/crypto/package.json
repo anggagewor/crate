@@ -1,0 +1,27 @@
+{
+  "name": "@purdia/crypto",
+  "version": "0.1.0",
+  "description": "Encrypted localStorage using Web Crypto API (AES-GCM + PBKDF2)",
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "main": "./dist/purdia-crypto.umd.cjs",
+  "module": "./dist/purdia-crypto.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/purdia-crypto.js",
+      "require": "./dist/purdia-crypto.umd.cjs"
+    }
+  },
+  "scripts": {
+    "build": "vite build && tsc --declaration --emitDeclarationOnly --outDir dist",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "typescript": "~6.0.0",
+    "vite": "^8.0.16"
+  }
+}

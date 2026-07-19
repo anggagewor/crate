@@ -1,0 +1,16 @@
+{
+  "name": "@purdia/tailwind",
+  "version": "0.1.0",
+  "description": "Shared Tailwind CSS v4 theme tokens and color presets for Purdia apps",
+  "files": [
+    "theme.css",
+    "colors.css",
+    "dark.css"
+  ],
+  "type": "module",
+  "exports": {
+    "./theme": "./theme.css",
+    "./colors": "./colors.css",
+    "./dark": "./dark.css"
+  }
+}

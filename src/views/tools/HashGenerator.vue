@@ -1,0 +1,63 @@
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import ToolLayout from '@/components/ToolLayout.vue'
+import { useCopy } from '@/composables/useCopy'
+import { BaseCard, BaseButton } from '@purdia/ui'
+import { Copy } from 'lucide-vue-next'
+
+const { copy } = useCopy()
+
+const input = ref('')
+const results = ref<{ algo: string; hash: string }[]>([])
+
+const algorithms = ['SHA-1', 'SHA-256', 'SHA-384', 'SHA-512']
+
+async function computeHashes() {
+  if (!input.value) {
+    results.value = []
+    return
+  }
+  const encoder = new TextEncoder()
+  const data = encoder.encode(input.value)
+
+  const hashes = await Promise.all(
+    algorithms.map(async (algo) => {
+      const buffer = await crypto.subtle.digest(algo, data)
+      const array = Array.from(new Uint8Array(buffer))
+      const hex = array.map((b) => b.toString(16).padStart(2, '0')).join('')
+      return { algo, hash: hex }
+    })
+  )
+  results.value = hashes
+}
+
+watch(input, computeHashes)
+</script>
+
+<template>
+  <ToolLayout tool-id="hash-generator" title="Hash Generator" description="Generate SHA-1, SHA-256, SHA-384, SHA-512 hashes">
+    <div class="space-y-4">
+      <BaseCard variant="bordered" :padding="false">
+        <template #header>
+          <span class="text-xs font-medium text-gray-500 dark:text-gray-400">Input text</span>
+        </template>
+        <textarea
+          v-model="input"
+          class="w-full h-32 p-4 font-mono text-sm bg-transparent border-0 resize-none focus:outline-none"
+          placeholder="Type or paste text to hash..."
+          spellcheck="false"
+        />
+      </BaseCard>
+
+      <div v-if="results.length" class="space-y-3">
+        <BaseCard v-for="r in results" :key="r.algo" variant="bordered">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-medium text-gray-500 dark:text-gray-400">{{ r.algo }}</span>
+            <BaseButton variant="ghost" size="sm" :icon="Copy" @click="copy(r.hash)" />
+          </div>
+          <code class="block text-xs font-mono text-gray-900 dark:text-gray-100 break-all">{{ r.hash }}</code>
+        </BaseCard>
+      </div>
+    </div>
+  </ToolLayout>
+</template>
