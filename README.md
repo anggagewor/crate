@@ -120,4 +120,4 @@ src-tauri/        # Tauri backend (Rust)
 
 ## License
 
-Private
+MIT
