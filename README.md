@@ -8,6 +8,7 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - **Vue 3** — Composition API + `<script setup>`
 - **Tailwind CSS v4** — Utility-first styling
 - **Pinia** — State management
+- **highlight.js** — Syntax highlighting with line numbers
 - **@purdia/ui** — Internal component library (45+ components)
 - **@purdia/theme** — Dark/light mode + color switching
 - **@purdia/toast** — Notification system
@@ -15,12 +16,14 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 
 ## Features
 
-- Sidebar navigation with collapsible category submenus
+- Sidebar navigation with collapsible category submenus and flyout menus (collapsed mode)
 - Command palette (Ctrl+K) for quick tool search
 - Dark/light theme toggle
 - Favorites and recent history (persisted to file)
-- One-click copy on all outputs
+- One-click copy on all outputs with toast notifications
 - Breadcrumb navigation
+- Syntax-highlighted code output with line numbers
+- Searchable select dropdowns (BaseSelect)
 - File-based settings storage (`$APPDATA/crate/`)
 
 ## Tools (35+)
