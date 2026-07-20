@@ -51,6 +51,10 @@ const routes: RouteRecordRaw[] = [
   { path: '/tools/diff-checker', name: 'diff-checker', component: () => import('@/views/tools/DiffChecker.vue') },
   { path: '/tools/word-counter', name: 'word-counter', component: () => import('@/views/tools/WordCounter.vue') },
   { path: '/tools/markdown-preview', name: 'markdown-preview', component: () => import('@/views/tools/MarkdownPreview.vue') },
+  { path: '/tools/snippets', name: 'snippets', component: () => import('@/views/tools/SnippetsManager.vue') },
+  { path: '/tools/env-editor', name: 'env-editor', component: () => import('@/views/tools/EnvEditor.vue') },
+  { path: '/tools/placeholder-image', name: 'placeholder-image', component: () => import('@/views/tools/PlaceholderImage.vue') },
+  { path: '/tools/chmod-calculator', name: 'chmod-calculator', component: () => import('@/views/tools/ChmodCalculator.vue') },
 ]
 
 const router = createRouter({

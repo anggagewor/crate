@@ -82,6 +82,10 @@ export const tools: Tool[] = [
   { id: 'diff-checker', name: 'Diff Checker', description: 'Compare two texts and see differences', icon: 'GitCompare', category: 'devhelpers', route: '/tools/diff-checker' },
   { id: 'word-counter', name: 'Word Counter', description: 'Count words, characters, lines, and sentences', icon: 'LetterText', category: 'devhelpers', route: '/tools/word-counter' },
   { id: 'markdown-preview', name: 'Markdown Preview', description: 'Preview Markdown with live rendering', icon: 'FileText', category: 'devhelpers', route: '/tools/markdown-preview' },
+  { id: 'snippets', name: 'Snippets Manager', description: 'Save and organize code snippets', icon: 'FileCode', category: 'devhelpers', route: '/tools/snippets' },
+  { id: 'env-editor', name: 'Env Editor', description: 'Visual .env file editor', icon: 'FileText', category: 'devhelpers', route: '/tools/env-editor' },
+  { id: 'placeholder-image', name: 'Placeholder Image', description: 'Generate placeholder SVG images', icon: 'Image', category: 'devhelpers', route: '/tools/placeholder-image' },
+  { id: 'chmod-calculator', name: 'Chmod Calculator', description: 'Unix file permission calculator', icon: 'Shield', category: 'devhelpers', route: '/tools/chmod-calculator' },
 ]
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {

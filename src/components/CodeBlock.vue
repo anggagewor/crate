@@ -2,6 +2,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import hljs from 'highlight.js/lib/core'
 import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/github-dark.css'
 
 // Register languages we need
 import json from 'highlight.js/lib/languages/json'
@@ -67,7 +68,7 @@ onMounted(highlight)
 </script>
 
 <template>
-  <div class="w-full h-full overflow-auto font-mono text-sm">
+  <div class="w-full h-full overflow-auto font-mono text-sm hljs-container">
     <table class="w-full border-collapse">
       <tbody>
         <tr v-for="(line, idx) in lines" :key="idx" class="hover:bg-gray-50 dark:hover:bg-gray-800/50">
@@ -78,3 +79,28 @@ onMounted(highlight)
     </table>
   </div>
 </template>
+
+<style>
+/* Dark mode: override highlight.js colors */
+.dark .hljs-container code {
+  color: #e6edf3;
+}
+.dark .hljs-container .hljs-keyword { color: #ff7b72; }
+.dark .hljs-container .hljs-string { color: #a5d6ff; }
+.dark .hljs-container .hljs-number { color: #79c0ff; }
+.dark .hljs-container .hljs-built_in { color: #ffa657; }
+.dark .hljs-container .hljs-attr { color: #79c0ff; }
+.dark .hljs-container .hljs-attribute { color: #7ee787; }
+.dark .hljs-container .hljs-comment { color: #8b949e; }
+.dark .hljs-container .hljs-tag { color: #7ee787; }
+.dark .hljs-container .hljs-name { color: #7ee787; }
+.dark .hljs-container .hljs-selector-class { color: #d2a8ff; }
+.dark .hljs-container .hljs-selector-tag { color: #7ee787; }
+.dark .hljs-container .hljs-property { color: #79c0ff; }
+.dark .hljs-container .hljs-literal { color: #79c0ff; }
+.dark .hljs-container .hljs-type { color: #ffa657; }
+.dark .hljs-container .hljs-title { color: #d2a8ff; }
+.dark .hljs-container .hljs-function { color: #d2a8ff; }
+.dark .hljs-container .hljs-variable { color: #ffa657; }
+.dark .hljs-container .hljs-punctuation { color: #e6edf3; }
+</style>

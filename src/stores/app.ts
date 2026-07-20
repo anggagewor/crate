@@ -67,6 +67,26 @@ export const useAppStore = defineStore('app', () => {
     return favorites.value.includes(toolId)
   }
 
+  function exportSettings(): string {
+    return JSON.stringify({
+      favorites: favorites.value,
+      recents: recents.value,
+      sidebarCollapsed: sidebarCollapsed.value,
+    }, null, 2)
+  }
+
+  function importSettings(json: string) {
+    try {
+      const data = JSON.parse(json) as Partial<AppState>
+      if (data.favorites) favorites.value = data.favorites
+      if (data.recents) recents.value = data.recents
+      if (data.sidebarCollapsed !== undefined) sidebarCollapsed.value = data.sidebarCollapsed
+      persist()
+    } catch {
+      // invalid JSON, ignore
+    }
+  }
+
   return {
     favorites,
     recents,
@@ -77,5 +97,7 @@ export const useAppStore = defineStore('app', () => {
     toggleFavorite,
     addRecent,
     isFavorite,
+    exportSettings,
+    importSettings,
   }
 })

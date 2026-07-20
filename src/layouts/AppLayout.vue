@@ -2,6 +2,7 @@
 import { useAppStore } from '@/stores/app'
 import AppSidebar from '@/components/AppSidebar.vue'
 import AppTopbar from '@/components/AppTopbar.vue'
+import TabBar from '@/components/TabBar.vue'
 
 const appStore = useAppStore()
 </script>
@@ -16,9 +17,14 @@ const appStore = useAppStore()
       <!-- Topbar -->
       <AppTopbar />
 
+      <!-- Tab bar -->
+      <div :class="appStore.sidebarCollapsed ? 'ml-16' : 'ml-64'" class="pt-14">
+        <TabBar />
+      </div>
+
       <!-- Page content -->
       <main
-        class="flex-1 overflow-y-auto pt-14 p-6"
+        class="flex-1 overflow-y-auto p-6"
         :class="appStore.sidebarCollapsed ? 'ml-16' : 'ml-64'"
       >
         <div class="py-4">

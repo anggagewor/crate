@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import { useAppStore } from '@/stores/app'
+import { useTabsStore } from '@/stores/tabs'
 import { getToolById } from '@/data/tools'
 import { categories } from '@/data/tools'
 import { BaseButton, BaseBreadcrumb } from '@purdia/ui'
@@ -13,6 +15,8 @@ const props = defineProps<{
 }>()
 
 const appStore = useAppStore()
+const tabsStore = useTabsStore()
+const route = useRoute()
 
 const breadcrumbItems = computed(() => {
   const tool = getToolById(props.toolId)
@@ -26,6 +30,7 @@ const breadcrumbItems = computed(() => {
 
 onMounted(() => {
   appStore.addRecent(props.toolId)
+  tabsStore.openTab(props.toolId, route.path)
 })
 </script>
 
