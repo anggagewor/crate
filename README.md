@@ -1,5 +1,25 @@
 # Crate
 
+<p align="center">
+  <img src="assets/logo.png" alt="Crate Logo" width="120" height="120" />
+</p>
+
+<h3 align="center">Crate</h3>
+
+<p align="center">
+  Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vue 3. No backend required. All data stored locally via file-based storage.
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License MIT" />
+  <img src="https://img.shields.io/badge/Tauri-v2-FFC72C?logo=tauri&logoColor=white" alt="Tauri v2" />
+  <img src="https://img.shields.io/badge/Vue-3.x-4FC08D?logo=vuedotjs&logoColor=white" alt="Vue 3" />
+  <img src="https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS v4" />
+  <img src="https://img.shields.io/badge/Platform-Desktop-blue" alt="Platform Desktop" />
+</p>
+
+---
+
 Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vue 3. No backend required. All data stored locally via file-based storage.
 
 ## Stack

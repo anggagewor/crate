@@ -16,6 +16,7 @@ export default defineConfig(async () => ({
     alias: {
       '@': resolve(__dirname, 'src'),
     },
+    dedupe: ['vue', 'pinia', 'vue-router'],
   },
 
   clearScreen: false,
