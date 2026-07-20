@@ -70,8 +70,14 @@ function hexToRgb(hex: string): string {
   return `rgb(${r}, ${g}, ${b})`
 }
 
+// Validate hex color
+function isValidHex(hex: string): boolean {
+  return /^#[0-9A-Fa-f]{6}$/.test(hex)
+}
+
 // Generate Tailwind-style shades from base color
 const shades = computed<Shade[]>(() => {
+  if (!isValidHex(baseColor.value)) return []
   const [h, s, _l] = hexToHsl(baseColor.value)
 
   // Tailwind shade lightness targets (approximate)
@@ -159,8 +165,13 @@ function randomColor() {
       </div>
     </div>
 
+    <!-- Invalid hex warning -->
+    <p v-if="baseColor && !isValidHex(baseColor)" class="text-xs text-amber-600 dark:text-amber-400 mb-4">
+      Invalid hex color format. Use #RRGGBB (e.g. #3B82F6)
+    </p>
+
     <!-- Palette preview (horizontal bar) -->
-    <BaseCard variant="bordered" class="mb-6">
+    <BaseCard v-if="shades.length > 0" variant="bordered" class="mb-6">
       <div class="flex rounded-lg overflow-hidden h-20">
         <div
           v-for="shade in shades"
@@ -178,7 +189,7 @@ function randomColor() {
     </BaseCard>
 
     <!-- Shade details -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div v-if="shades.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
       <div
         v-for="shade in shades"
         :key="shade.level"

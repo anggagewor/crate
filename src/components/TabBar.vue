@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import { useTabsStore } from '@/stores/tabs'
+import { getToolById } from '@/data/tools'
+import { getToolIcon } from '@/composables/useToolIcon'
 import { X } from 'lucide-vue-next'
 
 const tabsStore = useTabsStore()
@@ -22,6 +24,11 @@ function closeTab(tabId: string, event: MouseEvent) {
     router.push('/')
   }
 }
+
+function getTabIcon(toolId: string) {
+  const tool = getToolById(toolId)
+  return tool ? getToolIcon(tool.icon) : null
+}
 </script>
 
 <template>
@@ -35,6 +42,12 @@ function closeTab(tabId: string, event: MouseEvent) {
         : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/30'"
       @click="switchTab(tab.id, tab.route)"
     >
+      <component
+        :is="getTabIcon(tab.toolId)"
+        v-if="getTabIcon(tab.toolId)"
+        :size="12"
+        class="shrink-0"
+      />
       <span class="truncate max-w-[120px]">{{ tab.title }}</span>
       <button
         class="p-0.5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"

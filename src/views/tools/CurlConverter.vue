@@ -57,6 +57,11 @@ function parseCurl(cmd: string): ParsedCurl {
 
   for (let i = 0; i < tokens.length; i++) {
     const token = tokens[i]
+    // Skip common flags that don't affect code generation
+    if (['--compressed', '--insecure', '-k', '-s', '--silent', '-S', '--show-error',
+         '-L', '--location', '-v', '--verbose', '-i', '--include'].includes(token)) {
+      continue
+    }
     if (token === '-X' || token === '--request') {
       result.method = tokens[++i]?.toUpperCase() || 'GET'
     } else if (token === '-H' || token === '--header') {

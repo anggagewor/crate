@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
 import { BaseButton, BaseCard } from '@purdia/ui'
 import { Play, RotateCcw, Loader2 } from 'lucide-vue-next'
@@ -8,6 +8,17 @@ const testing = ref(false)
 const completed = ref(false)
 const progress = ref(0)
 const currentPhase = ref('')
+const testError = ref('')
+
+// Keyboard shortcut: Ctrl+Enter to start/restart test
+function handleKeydown(e: KeyboardEvent) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && !testing.value) {
+    runTest()
+  }
+}
+
+onMounted(() => window.addEventListener('keydown', handleKeydown))
+onUnmounted(() => window.removeEventListener('keydown', handleKeydown))
 
 interface SpeedResult {
   downloadSpeed: number // Mbps
@@ -40,10 +51,11 @@ async function measureLatency(): Promise<{ latency: number; jitter: number }> {
   return { latency: Math.round(avg), jitter: Math.round(jitter) }
 }
 
-// Measure download speed using Cloudflare's speed test endpoint
+// Measure download speed with Cloudflare primary, fallback to generic download
 async function measureDownload(): Promise<number> {
   const sizes = [1e5, 5e5, 1e6, 5e6, 1e7] // 100KB, 500KB, 1MB, 5MB, 10MB
   const speeds: number[] = []
+  let useFallback = false
 
   for (let i = 0; i < sizes.length; i++) {
     progress.value = 20 + (i / sizes.length) * 40
@@ -51,17 +63,23 @@ async function measureDownload(): Promise<number> {
     const start = performance.now()
 
     try {
-      const res = await fetch(`https://speed.cloudflare.com/__down?bytes=${size}`, {
-        cache: 'no-store',
-      })
-      await res.arrayBuffer()
+      const url = useFallback
+        ? `https://cdn.jsdelivr.net/npm/bootstrap@5/dist/css/bootstrap.min.css?_=${Date.now()}_${i}`
+        : `https://speed.cloudflare.com/__down?bytes=${size}`
+
+      const res = await fetch(url, { cache: 'no-store' })
+      const buf = await res.arrayBuffer()
       const end = performance.now()
       const duration = (end - start) / 1000 // seconds
-      const bitsLoaded = size * 8
+      const bitsLoaded = buf.byteLength * 8
       const speedMbps = bitsLoaded / duration / 1e6
       speeds.push(speedMbps)
     } catch {
-      // Skip failed attempts
+      // If Cloudflare fails (CORS), switch to fallback for remaining iterations
+      if (!useFallback) {
+        useFallback = true
+        i-- // retry this iteration with fallback
+      }
     }
   }
 
@@ -72,7 +90,7 @@ async function measureDownload(): Promise<number> {
   return topSpeeds.reduce((a, b) => a + b, 0) / topSpeeds.length
 }
 
-// Measure upload speed using Cloudflare's speed test endpoint
+// Measure upload speed with Cloudflare, gracefully handle CORS failures
 async function measureUpload(): Promise<number> {
   const sizes = [1e5, 5e5, 1e6] // 100KB, 500KB, 1MB
   const speeds: number[] = []
@@ -95,7 +113,7 @@ async function measureUpload(): Promise<number> {
       const speedMbps = bitsLoaded / duration / 1e6
       speeds.push(speedMbps)
     } catch {
-      // Skip failed attempts
+      // CORS or network error — skip but don't break the whole test
     }
   }
 
@@ -110,6 +128,7 @@ async function runTest() {
   completed.value = false
   progress.value = 0
   result.value = null
+  testError.value = ''
 
   try {
     // Phase 1: Latency
@@ -127,6 +146,11 @@ async function runTest() {
     currentPhase.value = 'Testing upload speed...'
     const uploadSpeed = await measureUpload()
     progress.value = 100
+
+    if (downloadSpeed === 0 && uploadSpeed === 0) {
+      testError.value = 'Speed test failed — could not connect to test servers. Check your internet connection.'
+      return
+    }
 
     const res: SpeedResult = {
       downloadSpeed: Math.round(downloadSpeed * 100) / 100,
@@ -180,6 +204,7 @@ const speedRating = computed(() => {
         {{ completed ? 'Test Again' : 'Start Test' }}
       </BaseButton>
       <BaseButton v-if="completed && !testing" variant="secondary" size="sm" :icon="RotateCcw" @click="reset">Reset</BaseButton>
+      <span v-if="!testing" class="text-xs text-gray-400 dark:text-gray-500 ml-2">⌘+Enter</span>
     </div>
 
     <!-- Progress -->
@@ -193,6 +218,14 @@ const speedRating = computed(() => {
           class="bg-primary-500 h-2 rounded-full transition-all duration-300"
           :style="{ width: `${progress}%` }"
         />
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div v-if="testError" class="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800">
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-red-700 dark:text-red-300">{{ testError }}</p>
+        <BaseButton variant="ghost" size="sm" @click="runTest">Retry</BaseButton>
       </div>
     </div>
 

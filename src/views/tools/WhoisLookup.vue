@@ -108,7 +108,10 @@ function copyResult() {
 
     <!-- Error -->
     <BaseAlert v-if="error" variant="danger" class="mb-4">
-      {{ error }}
+      <div class="flex items-center justify-between">
+        <span>{{ error }}</span>
+        <BaseButton variant="ghost" size="sm" @click="lookup">Retry</BaseButton>
+      </div>
     </BaseAlert>
 
     <!-- Result -->

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 import ToolLayout from '@/components/ToolLayout.vue'
 import { useCopy } from '@/composables/useCopy'
 import { BaseButton, BaseCard, BaseAlert, BaseSelect } from '@purdia/ui'
@@ -8,6 +8,10 @@ import { Download, Trash2, QrCode as QrCodeIcon } from 'lucide-vue-next'
 const { copy } = useCopy()
 
 const activeTab = ref<'generate' | 'decode'>('generate')
+
+// Global paste listener for QR decode
+onMounted(() => window.addEventListener('paste', handlePaste as any))
+onUnmounted(() => window.removeEventListener('paste', handlePaste as any))
 
 // Generator state
 const text = ref('')
@@ -64,6 +68,21 @@ async function handleFileDrop(event: DragEvent) {
   event.preventDefault()
   const file = event.dataTransfer?.files[0]
   if (file) await decodeFile(file)
+}
+
+async function handlePaste(event: ClipboardEvent) {
+  const items = event.clipboardData?.items
+  if (!items) return
+  for (const item of items) {
+    if (item.type.startsWith('image/')) {
+      const file = item.getAsFile()
+      if (file) {
+        event.preventDefault()
+        await decodeFile(file)
+        break
+      }
+    }
+  }
 }
 
 function handleFileSelect(event: Event) {
@@ -205,7 +224,7 @@ function clearDecode() {
           <div v-else class="text-center text-sm text-gray-500 dark:text-gray-400">
             <QrCodeIcon :size="48" class="mx-auto mb-2 text-gray-300 dark:text-gray-600" />
             <p>Click or drag & drop a QR code image</p>
-            <p class="text-xs mt-1">Supports PNG, JPG, GIF</p>
+            <p class="text-xs mt-1">Also supports Ctrl+V paste from clipboard</p>
           </div>
           <input
             ref="decodeInput"

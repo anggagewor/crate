@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { categories, getToolsByCategory, getToolById } from '@/data/tools'
 import { BaseCard } from '@purdia/ui'
-import { Clock, Star, ArrowRight } from 'lucide-vue-next'
+import { Clock, Star } from 'lucide-vue-next'
+import { getToolIcon } from '@/composables/useToolIcon'
 
 const appStore = useAppStore()
 const router = useRouter()
@@ -48,15 +49,20 @@ function openTool(route: string, id: string) {
           :key="tool!.id"
           variant="bordered"
           hoverable
-          class="cursor-pointer"
+          class="cursor-pointer group overflow-hidden"
           @click="openTool(tool!.route, tool!.id)"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 relative">
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ tool!.name }}</div>
               <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ tool!.description }}</div>
             </div>
-            <ArrowRight :size="14" class="text-gray-400 shrink-0" />
+            <component
+              :is="getToolIcon(tool!.icon)"
+              :size="40"
+              class="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 group-hover:text-primary-300 dark:group-hover:text-primary-700 transition-colors"
+              :stroke-width="1.2"
+            />
           </div>
         </BaseCard>
       </div>
@@ -74,15 +80,20 @@ function openTool(route: string, id: string) {
           :key="tool!.id"
           variant="bordered"
           hoverable
-          class="cursor-pointer"
+          class="cursor-pointer group overflow-hidden"
           @click="openTool(tool!.route, tool!.id)"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 relative">
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ tool!.name }}</div>
               <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ tool!.description }}</div>
             </div>
-            <ArrowRight :size="14" class="text-gray-400 shrink-0" />
+            <component
+              :is="getToolIcon(tool!.icon)"
+              :size="40"
+              class="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 group-hover:text-primary-300 dark:group-hover:text-primary-700 transition-colors"
+              :stroke-width="1.2"
+            />
           </div>
         </BaseCard>
       </div>
@@ -97,15 +108,20 @@ function openTool(route: string, id: string) {
           :key="tool.id"
           variant="bordered"
           hoverable
-          class="cursor-pointer"
+          class="cursor-pointer group overflow-hidden"
           @click="openTool(tool.route, tool.id)"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 relative">
             <div class="flex-1 min-w-0">
               <div class="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{{ tool.name }}</div>
               <div class="text-xs text-gray-500 dark:text-gray-400 truncate">{{ tool.description }}</div>
             </div>
-            <ArrowRight :size="14" class="text-gray-400 shrink-0" />
+            <component
+              :is="getToolIcon(tool.icon)"
+              :size="40"
+              class="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-600 group-hover:text-primary-300 dark:group-hover:text-primary-700 transition-colors"
+              :stroke-width="1.2"
+            />
           </div>
         </BaseCard>
       </div>

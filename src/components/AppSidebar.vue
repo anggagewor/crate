@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAppStore } from '@/stores/app'
 import { categories, getToolsByCategory, tools, type ToolCategory } from '@/data/tools'
+import { getToolIcon } from '@/composables/useToolIcon'
 import {
   Home,
   Star,
@@ -22,6 +23,17 @@ const router = useRouter()
 
 // Track which categories are expanded (for wide sidebar) — all collapsed by default
 const expandedCategories = ref<Set<ToolCategory>>(new Set())
+
+// Auto-expand the category that contains the currently active tool
+watch(() => route.path, (path) => {
+  for (const cat of categories) {
+    const catTools = getToolsByCategory(cat.id)
+    if (catTools.some((t) => t.route === path)) {
+      expandedCategories.value.add(cat.id)
+      break
+    }
+  }
+}, { immediate: true })
 
 // Track which category flyout is visible (for collapsed sidebar)
 const hoveredCategory = ref<ToolCategory | null>(null)
@@ -175,10 +187,11 @@ function keepFlyoutOpen() {
               <button
                 v-for="tool in getToolsByCategory(cat.id)"
                 :key="tool.id"
-                class="w-full flex items-center gap-2 px-3 py-1.5 pl-9 rounded-lg text-sm transition-colors cursor-pointer"
+                class="w-full flex items-center gap-2 px-3 py-1.5 pl-7 rounded-lg text-sm transition-colors cursor-pointer"
                 :class="isActive(tool.route) ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'"
                 @click="navigateTo(tool.route)"
               >
+                <component :is="getToolIcon(tool.icon)" :size="14" class="shrink-0 opacity-60" />
                 <span class="truncate">{{ tool.name }}</span>
               </button>
             </div>
@@ -215,10 +228,11 @@ function keepFlyoutOpen() {
       <button
         v-for="tool in getToolsByCategory(hoveredCategory)"
         :key="tool.id"
-        class="w-full text-left px-3 py-1.5 text-sm transition-colors cursor-pointer"
+        class="w-full flex items-center gap-2 text-left px-3 py-1.5 text-sm transition-colors cursor-pointer"
         :class="isActive(tool.route) ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 font-medium' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700'"
         @click="navigateTo(tool.route)"
       >
+        <component :is="getToolIcon(tool.icon)" :size="14" class="shrink-0 opacity-60" />
         {{ tool.name }}
       </button>
     </div>

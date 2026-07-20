@@ -40,6 +40,11 @@ async function lookup(ip?: string) {
       : `http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`
 
     const res = await fetch(url)
+
+    if (res.status === 429) {
+      throw new Error('Rate limit exceeded. Please wait a moment and try again.')
+    }
+
     const data = await res.json()
 
     if (data.status === 'fail') {
@@ -105,7 +110,10 @@ onMounted(() => {
 
     <!-- Error -->
     <BaseAlert v-if="error" variant="danger" class="mb-4">
-      {{ error }}
+      <div class="flex items-center justify-between">
+        <span>{{ error }}</span>
+        <BaseButton variant="ghost" size="sm" :icon="RefreshCw" @click="lookup(input.trim() || undefined)">Retry</BaseButton>
+      </div>
     </BaseAlert>
 
     <!-- Result -->
@@ -167,10 +175,19 @@ onMounted(() => {
       </BaseCard>
     </div>
 
-    <!-- Loading -->
-    <div v-if="loading && !result" class="text-center py-12">
-      <Loader2 :size="24" class="animate-spin text-primary-500 mx-auto mb-2" />
-      <p class="text-sm text-gray-500 dark:text-gray-400">Looking up IP location...</p>
+    <!-- Loading skeleton -->
+    <div v-if="loading && !result" class="space-y-4">
+      <BaseCard variant="bordered">
+        <div class="animate-pulse">
+          <div class="h-6 w-40 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div v-for="n in 9" :key="n">
+              <div class="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded mb-1.5" />
+              <div class="h-4 w-28 bg-gray-200 dark:bg-gray-700 rounded" />
+            </div>
+          </div>
+        </div>
+      </BaseCard>
     </div>
   </ToolLayout>
 </template>
