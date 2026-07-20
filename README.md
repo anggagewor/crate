@@ -50,7 +50,7 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - Searchable select dropdowns (BaseSelect)
 - File-based settings storage (`$APPDATA/crate/`)
 
-## Tools (40+)
+## Tools (48+)
 
 ### Formatters
 - JSON Formatter
@@ -71,6 +71,8 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - Hash Generator (SHA-1, SHA-256, SHA-384, SHA-512)
 - HMAC Generator
 - Lorem Ipsum
+- ULID Generator
+- QR Code Generator & Decoder
 
 ### Date & Time
 - Timestamp Converter (Unix <> Human)
@@ -94,6 +96,8 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - Network Speed Test (Download/Upload/Latency/Jitter)
 - IP Location (Geolocation)
 - Network Information (Connection details, browser info)
+- DNS Lookup (A, AAAA, CNAME, MX, NS, TXT, SOA, SRV, CAA)
+- Certificate Decoder (X.509 PEM)
 
 ### Dev Helpers
 - Regex Tester
@@ -105,6 +109,14 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - Diff Checker
 - Word Counter
 - Markdown Preview
+- Snippets Manager
+- Env Editor
+- Placeholder Image
+- Chmod Calculator
+- cURL ↔ Code Generator (fetch, axios, Python, Go, PHP)
+- User Agent Parser
+- Cookie Parser
+- Color Palette Generator (Tailwind shades)
 
 ## Development
 

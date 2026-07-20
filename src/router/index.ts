@@ -23,6 +23,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/tools/hash-generator', name: 'hash-generator', component: () => import('@/views/tools/HashGenerator.vue') },
   { path: '/tools/hmac-generator', name: 'hmac-generator', component: () => import('@/views/tools/HmacGenerator.vue') },
   { path: '/tools/lorem-ipsum', name: 'lorem-ipsum', component: () => import('@/views/tools/LoremIpsum.vue') },
+  { path: '/tools/ulid-generator', name: 'ulid-generator', component: () => import('@/views/tools/UlidGenerator.vue') },
+  { path: '/tools/qr-code', name: 'qr-code', component: () => import('@/views/tools/QrCode.vue') },
 
   // Date & Time
   { path: '/tools/timestamp', name: 'timestamp', component: () => import('@/views/tools/TimestampConverter.vue') },
@@ -46,6 +48,8 @@ const routes: RouteRecordRaw[] = [
   { path: '/tools/speed-test', name: 'speed-test', component: () => import('@/views/tools/SpeedTest.vue') },
   { path: '/tools/ip-location', name: 'ip-location', component: () => import('@/views/tools/IpLocation.vue') },
   { path: '/tools/network-info', name: 'network-info', component: () => import('@/views/tools/NetworkInfo.vue') },
+  { path: '/tools/dns-lookup', name: 'dns-lookup', component: () => import('@/views/tools/DnsLookup.vue') },
+  { path: '/tools/cert-decoder', name: 'cert-decoder', component: () => import('@/views/tools/CertDecoder.vue') },
 
   // Dev Helpers
   { path: '/tools/regex-tester', name: 'regex-tester', component: () => import('@/views/tools/RegexTester.vue') },
@@ -61,6 +65,10 @@ const routes: RouteRecordRaw[] = [
   { path: '/tools/env-editor', name: 'env-editor', component: () => import('@/views/tools/EnvEditor.vue') },
   { path: '/tools/placeholder-image', name: 'placeholder-image', component: () => import('@/views/tools/PlaceholderImage.vue') },
   { path: '/tools/chmod-calculator', name: 'chmod-calculator', component: () => import('@/views/tools/ChmodCalculator.vue') },
+  { path: '/tools/curl-converter', name: 'curl-converter', component: () => import('@/views/tools/CurlConverter.vue') },
+  { path: '/tools/ua-parser', name: 'ua-parser', component: () => import('@/views/tools/UserAgentParser.vue') },
+  { path: '/tools/cookie-parser', name: 'cookie-parser', component: () => import('@/views/tools/CookieParser.vue') },
+  { path: '/tools/color-palette', name: 'color-palette', component: () => import('@/views/tools/ColorPalette.vue') },
 ]
 
 const router = createRouter({

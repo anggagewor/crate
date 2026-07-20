@@ -56,6 +56,8 @@ export const tools: Tool[] = [
   { id: 'hash-generator', name: 'Hash Generator', description: 'Generate SHA-1, SHA-256, SHA-512 hashes', icon: 'Lock', category: 'generators', route: '/tools/hash-generator' },
   { id: 'hmac-generator', name: 'HMAC Generator', description: 'Generate HMAC signatures', icon: 'Lock', category: 'generators', route: '/tools/hmac-generator' },
   { id: 'lorem-ipsum', name: 'Lorem Ipsum', description: 'Generate placeholder text', icon: 'TextCursorInput', category: 'generators', route: '/tools/lorem-ipsum' },
+  { id: 'ulid-generator', name: 'ULID Generator', description: 'Generate sortable unique identifiers', icon: 'Fingerprint', category: 'generators', route: '/tools/ulid-generator' },
+  { id: 'qr-code', name: 'QR Code', description: 'Generate and decode QR codes', icon: 'QrCode', category: 'generators', route: '/tools/qr-code' },
 
   // ── Date & Time ─────────────────────────────────────────────
   { id: 'timestamp', name: 'Timestamp Converter', description: 'Convert between Unix timestamps and dates', icon: 'Clock', category: 'datetime', route: '/tools/timestamp' },
@@ -79,6 +81,8 @@ export const tools: Tool[] = [
   { id: 'speed-test', name: 'Speed Test', description: 'Test your internet download and upload speed', icon: 'Gauge', category: 'network', route: '/tools/speed-test' },
   { id: 'ip-location', name: 'IP Location', description: 'Geolocate any IP address or find your own', icon: 'MapPin', category: 'network', route: '/tools/ip-location' },
   { id: 'network-info', name: 'Network Info', description: 'View your network connection and browser details', icon: 'Wifi', category: 'network', route: '/tools/network-info' },
+  { id: 'dns-lookup', name: 'DNS Lookup', description: 'Query DNS records for any domain', icon: 'Globe', category: 'network', route: '/tools/dns-lookup' },
+  { id: 'cert-decoder', name: 'Certificate Decoder', description: 'Decode and inspect X.509 PEM certificates', icon: 'ShieldCheck', category: 'network', route: '/tools/cert-decoder' },
 
   // ── Dev Helpers ─────────────────────────────────────────────
   { id: 'regex-tester', name: 'Regex Tester', description: 'Test regular expressions with live matching', icon: 'Regex', category: 'devhelpers', route: '/tools/regex-tester' },
@@ -94,6 +98,10 @@ export const tools: Tool[] = [
   { id: 'env-editor', name: 'Env Editor', description: 'Visual .env file editor', icon: 'FileText', category: 'devhelpers', route: '/tools/env-editor' },
   { id: 'placeholder-image', name: 'Placeholder Image', description: 'Generate placeholder SVG images', icon: 'Image', category: 'devhelpers', route: '/tools/placeholder-image' },
   { id: 'chmod-calculator', name: 'Chmod Calculator', description: 'Unix file permission calculator', icon: 'Shield', category: 'devhelpers', route: '/tools/chmod-calculator' },
+  { id: 'curl-converter', name: 'cURL ↔ Code', description: 'Convert cURL commands to code in various languages', icon: 'Terminal', category: 'devhelpers', route: '/tools/curl-converter' },
+  { id: 'ua-parser', name: 'User Agent Parser', description: 'Parse and analyze user agent strings', icon: 'Monitor', category: 'devhelpers', route: '/tools/ua-parser' },
+  { id: 'cookie-parser', name: 'Cookie Parser', description: 'Parse and inspect HTTP cookie strings', icon: 'Cookie', category: 'devhelpers', route: '/tools/cookie-parser' },
+  { id: 'color-palette', name: 'Color Palette', description: 'Generate Tailwind CSS color shades from any base color', icon: 'Palette', category: 'devhelpers', route: '/tools/color-palette' },
 ]
 
 export function getToolsByCategory(category: ToolCategory): Tool[] {
