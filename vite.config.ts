@@ -9,6 +9,9 @@ const host = process.env.TAURI_DEV_HOST
 export default defineConfig(async () => ({
   plugins: [vue(), tailwindcss()],
 
+  // Use relative paths so assets load correctly in Tauri production build
+  base: './',
+
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
