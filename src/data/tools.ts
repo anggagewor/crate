@@ -17,6 +17,7 @@ export type ToolCategory =
   | 'datetime'
   | 'encoding'
   | 'data'
+  | 'network'
   | 'devhelpers'
 
 export interface CategoryMeta {
@@ -31,6 +32,7 @@ export const categories: CategoryMeta[] = [
   { id: 'datetime', label: 'Date & Time', icon: 'RefreshCw' },
   { id: 'encoding', label: 'Encoding', icon: 'ArrowLeftRight' },
   { id: 'data', label: 'Data', icon: 'Lock' },
+  { id: 'network', label: 'Network', icon: 'Wifi' },
   { id: 'devhelpers', label: 'Dev Helpers', icon: 'Type' },
 ]
 
@@ -71,6 +73,12 @@ export const tools: Tool[] = [
   { id: 'csv-json', name: 'CSV ↔ JSON', description: 'Convert between CSV and JSON', icon: 'ArrowLeftRight', category: 'data', route: '/tools/csv-json' },
   { id: 'json-diff', name: 'JSON Diff', description: 'Compare two JSON documents', icon: 'GitCompare', category: 'data', route: '/tools/json-diff' },
   { id: 'jsonpath-tester', name: 'JSON Path Tester', description: 'Test JSONPath expressions', icon: 'Search', category: 'data', route: '/tools/jsonpath-tester' },
+
+  // ── Network ──────────────────────────────────────────────────
+  { id: 'whois-lookup', name: 'WHOIS Lookup', description: 'Lookup WHOIS information for domains and IPs', icon: 'Globe', category: 'network', route: '/tools/whois-lookup' },
+  { id: 'speed-test', name: 'Speed Test', description: 'Test your internet download and upload speed', icon: 'Gauge', category: 'network', route: '/tools/speed-test' },
+  { id: 'ip-location', name: 'IP Location', description: 'Geolocate any IP address or find your own', icon: 'MapPin', category: 'network', route: '/tools/ip-location' },
+  { id: 'network-info', name: 'Network Info', description: 'View your network connection and browser details', icon: 'Wifi', category: 'network', route: '/tools/network-info' },
 
   // ── Dev Helpers ─────────────────────────────────────────────
   { id: 'regex-tester', name: 'Regex Tester', description: 'Test regular expressions with live matching', icon: 'Regex', category: 'devhelpers', route: '/tools/regex-tester' },

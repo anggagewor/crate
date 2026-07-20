@@ -12,6 +12,7 @@ import {
   RefreshCw,
   Lock,
   Type,
+  Wifi,
   ChevronDown,
 } from 'lucide-vue-next'
 
@@ -19,8 +20,8 @@ const appStore = useAppStore()
 const route = useRoute()
 const router = useRouter()
 
-// Track which categories are expanded (for wide sidebar)
-const expandedCategories = ref<Set<ToolCategory>>(new Set(['formatters', 'generators', 'datetime', 'encoding', 'data', 'devhelpers']))
+// Track which categories are expanded (for wide sidebar) — all collapsed by default
+const expandedCategories = ref<Set<ToolCategory>>(new Set())
 
 // Track which category flyout is visible (for collapsed sidebar)
 const hoveredCategory = ref<ToolCategory | null>(null)
@@ -33,6 +34,7 @@ const iconMap: Record<string, typeof Home> = {
   RefreshCw,
   Lock,
   Type,
+  Wifi,
 }
 
 function getCategoryIcon(iconName: string) {

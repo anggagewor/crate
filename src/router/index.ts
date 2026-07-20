@@ -41,6 +41,12 @@ const routes: RouteRecordRaw[] = [
   { path: '/tools/json-diff', name: 'json-diff', component: () => import('@/views/tools/JsonDiff.vue') },
   { path: '/tools/jsonpath-tester', name: 'jsonpath-tester', component: () => import('@/views/tools/JsonPathTester.vue') },
 
+  // Network
+  { path: '/tools/whois-lookup', name: 'whois-lookup', component: () => import('@/views/tools/WhoisLookup.vue') },
+  { path: '/tools/speed-test', name: 'speed-test', component: () => import('@/views/tools/SpeedTest.vue') },
+  { path: '/tools/ip-location', name: 'ip-location', component: () => import('@/views/tools/IpLocation.vue') },
+  { path: '/tools/network-info', name: 'network-info', component: () => import('@/views/tools/NetworkInfo.vue') },
+
   // Dev Helpers
   { path: '/tools/regex-tester', name: 'regex-tester', component: () => import('@/views/tools/RegexTester.vue') },
   { path: '/tools/http-status', name: 'http-status', component: () => import('@/views/tools/HttpStatus.vue') },

@@ -46,7 +46,7 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - Searchable select dropdowns (BaseSelect)
 - File-based settings storage (`$APPDATA/crate/`)
 
-## Tools (35+)
+## Tools (40+)
 
 ### Formatters
 - JSON Formatter
@@ -84,6 +84,12 @@ Personal dev toolbox — an all-in-one desktop utility app built with Tauri + Vu
 - CSV <> JSON
 - JSON Diff
 - JSONPath Tester
+
+### Network
+- Domain & IP WHOIS Lookup (RDAP)
+- Network Speed Test (Download/Upload/Latency/Jitter)
+- IP Location (Geolocation)
+- Network Information (Connection details, browser info)
 
 ### Dev Helpers
 - Regex Tester
