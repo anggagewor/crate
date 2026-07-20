@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/ss.png" alt="Purdia">
+</p>
+
 # Crate
 
 <p align="center">
