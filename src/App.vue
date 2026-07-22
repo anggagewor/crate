@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 import { useAppStore } from '@/stores/app'
+import { useTabsStore } from '@/stores/tabs'
 import { useThemeStore } from '@purdia/theme'
 import { ToastContainer } from '@purdia/toast'
 import AppLayout from '@/layouts/AppLayout.vue'
 
 const appStore = useAppStore()
+const tabsStore = useTabsStore()
 const themeStore = useThemeStore()
 
 const COLLAPSE_BREAKPOINT = 1024
@@ -18,6 +20,7 @@ function handleResize() {
 
 onMounted(() => {
   appStore.init()
+  tabsStore.restoreSession()
   void themeStore
   handleResize()
   window.addEventListener('resize', handleResize)

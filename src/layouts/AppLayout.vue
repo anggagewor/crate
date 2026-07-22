@@ -3,6 +3,7 @@ import { useAppStore } from '@/stores/app'
 import AppSidebar from '@/components/AppSidebar.vue'
 import AppTopbar from '@/components/AppTopbar.vue'
 import TabBar from '@/components/TabBar.vue'
+import CommandPalette from '@/components/CommandPalette.vue'
 
 const appStore = useAppStore()
 </script>
@@ -28,14 +29,17 @@ const appStore = useAppStore()
         :class="appStore.sidebarCollapsed ? 'ml-16' : 'ml-64'"
       >
         <div class="py-4">
-          <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
-              <component :is="Component" />
-            </transition>
+          <router-view v-slot="{ Component, route }">
+            <keep-alive :max="20">
+              <component :is="Component" :key="route.path" />
+            </keep-alive>
           </router-view>
         </div>
       </main>
     </div>
+
+    <!-- Command Palette (Cmd+K) -->
+    <CommandPalette />
   </div>
 </template>
 

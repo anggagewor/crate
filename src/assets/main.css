@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'highlight.js/styles/github.css' layer(hljs);
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -58,3 +59,22 @@
   transition-duration: 150ms;
   transition-timing-function: ease;
 }
+
+/* highlight.js dark mode overrides */
+.dark .hljs {
+  background: transparent;
+  color: #e6edf3;
+}
+.dark .hljs-keyword,
+.dark .hljs-selector-tag,
+.dark .hljs-type { color: #ff7b72; }
+.dark .hljs-string,
+.dark .hljs-attr { color: #a5d6ff; }
+.dark .hljs-number,
+.dark .hljs-literal { color: #79c0ff; }
+.dark .hljs-comment { color: #8b949e; }
+.dark .hljs-title,
+.dark .hljs-function { color: #d2a8ff; }
+.dark .hljs-variable,
+.dark .hljs-params { color: #e6edf3; }
+.dark .hljs-built_in { color: #ffa657; }

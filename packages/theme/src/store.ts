@@ -12,7 +12,7 @@ import { defineStore } from 'pinia'
 // Types
 // ---------------------------------------------------------------------------
 
-export type Theme = 'light' | 'dark'
+export type Theme = 'light' | 'dark' | 'system'
 export type PrimaryColor =
   | 'indigo'
   | 'blue'
@@ -84,19 +84,14 @@ export const useThemeStore = defineStore('theme', () => {
     const userKey = themeConfig.getUserKey?.() ?? null
     if (userKey) {
       const saved = localStorage.getItem(`theme:${userKey}`) as Theme | null
-      if (saved === 'light' || saved === 'dark') return saved
+      if (saved === 'light' || saved === 'dark' || saved === 'system') return saved
     }
 
     const generic = localStorage.getItem('theme') as Theme | null
-    if (generic === 'light' || generic === 'dark') return generic
+    if (generic === 'light' || generic === 'dark' || generic === 'system') return generic
 
-    if (
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-color-scheme: dark)').matches
-    ) {
-      return 'dark'
-    }
-    return 'light'
+    // Default: follow system preference
+    return 'system'
   }
 
   function getInitialColor(): PrimaryColor {
@@ -116,7 +111,12 @@ export const useThemeStore = defineStore('theme', () => {
 
   function applyTheme(t: Theme) {
     if (typeof document === 'undefined') return
-    if (t === 'dark') {
+    const isDark =
+      t === 'dark' ||
+      (t === 'system' &&
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches)
+    if (isDark) {
       document.documentElement.classList.add('dark')
     } else {
       document.documentElement.classList.remove('dark')
@@ -135,7 +135,13 @@ export const useThemeStore = defineStore('theme', () => {
   }
 
   function toggle() {
-    theme.value = theme.value === 'light' ? 'dark' : 'light'
+    if (theme.value === 'system') {
+      theme.value = 'light'
+    } else if (theme.value === 'light') {
+      theme.value = 'dark'
+    } else {
+      theme.value = 'system'
+    }
   }
 
   function setColor(color: PrimaryColor) {
@@ -148,7 +154,7 @@ export const useThemeStore = defineStore('theme', () => {
     if (!userKey) return
 
     const savedTheme = localStorage.getItem(`theme:${userKey}`) as Theme | null
-    if (savedTheme === 'light' || savedTheme === 'dark') {
+    if (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system') {
       theme.value = savedTheme
     }
 
@@ -156,6 +162,16 @@ export const useThemeStore = defineStore('theme', () => {
     if (savedColor && validColors.includes(savedColor as PrimaryColor)) {
       primaryColor.value = savedColor as PrimaryColor
     }
+  }
+
+  // Listen for system theme changes when mode is 'system'
+  if (typeof window !== 'undefined') {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    mq.addEventListener('change', () => {
+      if (theme.value === 'system') {
+        applyTheme('system')
+      }
+    })
   }
 
   // Watch & apply
